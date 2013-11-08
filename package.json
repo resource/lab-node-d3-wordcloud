@@ -1,0 +1,24 @@
+{
+  "name": "wordcloud",
+  "version": "0.1.0",
+  "description": "Generate a word cloud from any data source.",
+  "main": "lib/wordcloud.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tobius/wordcloud.git"
+  },
+  "author": "Toby Miller <tobius.miller@gmail.com> (https://github.com/tobius)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tobius/wordcloud/issues"
+  },
+  "dependencies": {
+    "express": "~3.4.4"
+  }
+}
