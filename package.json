@@ -1,13 +1,13 @@
 {
   "name": "wordcloud",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generate a word cloud from any data source.",
   "main": "lib/wordcloud.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -R spec test/*"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,12 @@
     "url": "https://github.com/tobius/wordcloud/issues"
   },
   "dependencies": {
-    "express": "~3.4.4"
+    "express": "~3.4.4",
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.1",
+    "chai": "~1.8.1",
+    "consolidate": "~0.9.1"
   }
 }

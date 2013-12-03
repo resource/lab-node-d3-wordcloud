@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title><%=title%></title>
+    </head>
+    <body>
+        <script src="http://underscorejs.org/underscore-min.js"></script>
+        <script type="text/javascript">
+        </script>
+        <script src="js/d3.js"></script>
+        <script src="js/d3.layout.cloud.js"></script>
+        <script>
+
+            // words object
+            var words = <%= words %>;
+
+            // general
+            var i,
+                padding = 5,
+                orientations = 36,
+                increment = 5,
+                degrees = 90,
+                font = 'Impact',
+                spiral = 'rectangular',
+                maxcount = 0;
+            
+            // browser
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0];
+                width = (w.innerWidth || e.clientWidth || g.clientWidth) - ((padding * 4) * 2),
+                height = (w.innerHeight || e.clientHeight || g.clientHeight) - ((padding * 4) * 2),
+                fill = d3.scale.category20();
+                
+            // max word count
+            for (i = words.length - 1; i > -1; i -= 1){
+                if (words[i].count > maxcount){
+                    maxcount = words[i].count;
+                }
+            }
+
+            // max font metrics
+            var maxmetric = Math.round(d3.scale.sqrt()(maxcount)),
+                maxmetricsize = (maxmetric / 100) * maxmetric * (words.length * 1.5),
+                maxscalesize = Math.round((maxmetricsize / maxcount) * 100),
+                maxscalefactor = 100 / maxscalesize;
+
+            // configure wordcloud
+            var cloud = d3.layout.cloud()
+                .size([width, height])
+                .words(words)
+                .padding(padding)
+                .rotate(function(d){
+                    return ~~(Math.random() * orientations) * increment - degrees;
+                })
+                .spiral(spiral)
+                .font(font)
+                .fontSize(function(d){
+                    var metric = Math.round(d3.scale.sqrt()(+d.count));
+                    var scale = d.count / maxcount;
+                    var metricsize = (metric / 100) * metric * (words.length * 1.5);
+                    var scaledsize = Math.round(((metricsize / maxcount) * 100) * maxscalefactor) + 10;
+                    return scaledsize;
+                })
+                .on('end', draw)
+                .start();
+
+            // draw wordcloud
+            function draw(w, bounds) {
+                scale = bounds ? Math.min(
+                    width / Math.abs(bounds[1].x - width / 2),
+                    width / Math.abs(bounds[0].x - width / 2),
+                    height / Math.abs(bounds[1].y - height / 2),
+                    height / Math.abs(bounds[0].y - height / 2)
+                ) / 2 : 1;
+                d3.select('body').append('svg')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .append('g')
+                    .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')scale(' + scale + ')')
+                    .selectAll('text')
+                    .data(words)
+                    .enter().append('text')
+                    .style('font-size', function(d) { return d.size + 'px'; })
+                    .style('font-family', font)
+                    .style('fill', function(d, i) { return fill(i); })
+                    .attr('text-anchor', 'middle')
+                    .attr('transform', function(d) {
+                        return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
+                    })
+                    .text(function(d) { return d.text; });
+            }
+        </script>
+    </body>
+</html>
+
