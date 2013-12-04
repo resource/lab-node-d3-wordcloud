@@ -5,7 +5,7 @@ var _ = require('underscore'),
 
 exports.index = function(req, res){
 
-    var i, common, data, rand, words, uri, respond;
+    var i, big, small, common, data, rand, words, uri, respond;
 
     common = /^(I|a|able|about|above|after|all|also|am|an|and|any|are|as|ask|at|back|bad|be|because|beneath|big|but|by|call|can|case|child|come|company|could|day|different|do|early|even|eye|fact|feel|few|find|first|for|from|get|give|go|good|government|great|group|hand|has|have|he|her|high|him|his|how|if|important|in|into|it|is|its|just|know|large|last|leave|life|like|little|long|look|make|man|may|me|most|my|new|next|no|not|now|number|of|old|on|one|only|or|other|our|out|over|own|part|people|person|place|point|problem|public|right|same|say|see|seem|she|small|so|some|take|tell|than|that|the|their|them|then|there|these|they|thing|think|this|time|to|try|two|under|up|us|use|want|was|way|we|week|well|what|when|which|while|who|will|with|woman|work|world|would|year|you|young|your)$/i;
 
@@ -70,11 +70,20 @@ exports.index = function(req, res){
 
     } else {
 
-        words = 'Hello world normally you want more words than this but since this is just a test we will just run with this'.split(' ');
+        words = [];
 
-        for (i = words.length - 1; i > -1; i--){
+        big = 'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore'.split(' ');
+
+        for (i = big.length - 1; i > -1; i--){
             rand = _.random(1, 1000);
-            words[i] = { text: words[i], count: rand, size: 10 + rand };
+            words.push({ text: big[i], count: rand, size: 10 + rand });
+        }
+
+        small = 'et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat Duis aute irure in reprehenderit voluptate velit esse cillum eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum'.split(' ');
+
+        for (i = small.length - 1; i > -1; i--){
+            rand = _.random(1, 250);
+            words.push({ text: small[i], count: rand, size: 10 + rand });
         }
 
         respond(words);
