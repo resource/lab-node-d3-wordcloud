@@ -5,9 +5,10 @@
         <title><%=title%></title>
     </head>
     <body>
+        <style type="text/css">
+        html,body{ background-color:#efefef; }
+        </style>
         <script src="http://underscorejs.org/underscore-min.js"></script>
-        <script type="text/javascript">
-        </script>
         <script src="js/d3.js"></script>
         <script src="js/d3.layout.cloud.js"></script>
         <script>
@@ -17,11 +18,12 @@
 
             // general
             var i,
-                padding = 5,
-                orientations = 36,
-                increment = 5,
+                padding = 1,
+                orientations = 2,
+                increment = 90,
                 degrees = 90,
-                font = 'Impact',
+                //font = 'Trebuchet MS',
+                font = 'Arial Black',
                 spiral = 'rectangular',
                 maxcount = 0;
             
@@ -31,9 +33,13 @@
                 e = d.documentElement,
                 g = d.getElementsByTagName('body')[0];
                 width = (w.innerWidth || e.clientWidth || g.clientWidth) - ((padding * 4) * 2),
-                height = (w.innerHeight || e.clientHeight || g.clientHeight) - ((padding * 4) * 2),
-                fill = d3.scale.category20();
-                
+                height = (w.innerHeight || e.clientHeight || g.clientHeight) - ((padding * 4) * 2);
+                width = 1024;
+                height = 576;
+
+            // custom colors
+            fill = d3.scale.ordinal().range(['#002457', '#2b61ab', '#81a3c3', '#999999', '#002457', '#2b61ab', '#81a3c3', '#999999']);
+
             // max word count
             for (i = words.length - 1; i > -1; i -= 1){
                 if (words[i].count > maxcount){
@@ -61,7 +67,7 @@
                     var metric = Math.round(d3.scale.sqrt()(+d.count));
                     var scale = d.count / maxcount;
                     var metricsize = (metric / 100) * metric * (words.length * 1.5);
-                    var scaledsize = Math.round(((metricsize / maxcount) * 100) * maxscalefactor) + 10;
+                    var scaledsize = Math.round(((metricsize / maxcount) * 100) * maxscalefactor) + 6;
                     return scaledsize;
                 })
                 .on('end', draw)
