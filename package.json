@@ -22,7 +22,8 @@
     "express": "~3.4.4",
     "underscore": "~1.5.2",
     "ent": "~0.1.0",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "consolidate": "~0.9.1"
   },
   "devDependencies": {
     "mocha": "~1.12.1",
