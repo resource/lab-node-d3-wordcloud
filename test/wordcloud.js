@@ -19,15 +19,16 @@ describe('require(wordcloud)', function(){
             });
 
             it('must create a wordcloud object from valid text', function(done){
+                var goodtext = 'Hello World';
                 wordcloud.fromText(goodtext, function(err, obj){
-                    assert(!err, 'must not create an error');
-                    assert(typeof result === 'object', 'must be an object');
-                    // @todo: assert each expected field
+                    assert(!err, err);
+                    assert(typeof obj === 'object');
                     done();
                 });
             });
 
             it('must create an error from invalid text', function(done){
+                var badtext = null;
                 wordcloud.fromText(badtext, function(err, obj){
                     assert(err, 'must create an error');
                     done();
@@ -41,6 +42,23 @@ describe('require(wordcloud)', function(){
             it('must be valid', function(){
                 assert(wordcloud.fromUri !== undefined);
                 assert(typeof wordcloud.fromUri === 'function');
+            });
+
+            it('must create wordcloud object from a valid URI', function(done){
+                var gooduri = 'http://www.resource.com/';
+                wordcloud.fromUri(gooduri, function(err, obj){
+                    assert(!err, err);
+                    assert(typeof obj === 'object');
+                    done();
+                });
+            });
+
+            it('must create an error from an invalid URI', function(done){
+                var baduri = 'http://www.somethingthatnowayintheworldreallyexists.com/';
+                wordcloud.fromUri(baduri, function(err, obj){
+                    assert(err, 'must create an error');
+                    done();
+                });
             });
 
         });
