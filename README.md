@@ -13,6 +13,7 @@ Generating a [wordcloud](http://www.jasondavies.com/wordcloud/) using
 ```
 [~] git clone https://github.com/resource/lab-node-d3-wordcloud.git
 [~] cd lab-node-d3-wordcloud
+[~/lab-node-d3-wordcloud] npm install
 [~/lab-node-d3-wordcloud] npm test
 [~/lab-node-d3-wordcloud] node web.js
 [~/lab-node-d3-wordcloud] open http://localhost:5000
